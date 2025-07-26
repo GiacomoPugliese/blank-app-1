@@ -217,9 +217,10 @@ class Connect4Game:
         best_score = -float('inf')
         best_col   = None
         # Try every legal move for the AI
-        for col in self.get_valid_locations():
+        cols = self.get_valid_locations()
+        for col in cols:
             self.drop_piece(col, AI_PIECE)
-            _, score = self.minimax(depth - 1, False)
+            chosen_col, score = self.minimax(depth - 1, False)
             self.undo_move(col, AI_PIECE)
             # Keep the move with the highest score
             if score > best_score:
@@ -230,9 +231,10 @@ class Connect4Game:
         best_score =  float('inf')
         best_col   = None
         # Try every legal move for the human
-        for col in self.get_valid_locations():
+        cols = self.get_valid_locations()
+        for col in cols:
             self.drop_piece(col, PLAYER_PIECE)
-            _, score = self.minimax(depth - 1, True)
+            chosen_col, score = self.minimax(depth - 1, True)
             self.undo_move(col, PLAYER_PIECE)
             # Keep the move with the lowest score
             if score < best_score:
